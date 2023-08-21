@@ -1,7 +1,5 @@
 # photo2calorie
 
----
-
 ## Overview
 
 Calculate and display calories by importing photos of foods.
