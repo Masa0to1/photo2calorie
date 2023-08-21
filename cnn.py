@@ -1,3 +1,5 @@
+import os
+import sys
 import cnn_model
 import keras
 import matplotlib.pyplot as plt
@@ -12,7 +14,8 @@ in_shape = (im_rows, im_cols, im_color)
 nb_classes = 8
 
 # 写真データを読み込み
-photos = np.load('image.npz')
+npz_file_path = sys.argv[1]
+photos = np.load(npz_file_path)
 x = photos['x']
 y = photos['y']
 
@@ -30,10 +33,10 @@ model = cnn_model.get_model(in_shape, nb_classes)
 
 # 学習を実行
 hist = model.fit(x_train, y_train, 
-            batch_size=32,
-            epochs=20,
-            verbose=1,
-            validation_data=(x_test, y_test))
+    batch_size=32,
+    epochs=20,
+    verbose=1,
+    validation_data=(x_test, y_test))
 # モデルを評価
 score = model.evaluate(x_test, y_test, verbose=1)
 print('正解率=', score[1], 'loss=', score[0])
@@ -53,4 +56,11 @@ plt.title('Loss')
 plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 
-model.save_weights('.\image\photos-model-light.hdf5')
+# モデルの重みを保存
+weights_filename = 'photos-model-weights.hdf5'
+weights_directory = os.path.join('.', 'weight')  # ディレクトリパス
+os.makedirs(weights_directory, exist_ok=True)  # ディレクトリが存在しない場合に作成
+weights_path = os.path.join(weights_directory, weights_filename)
+model.save_weights(weights_path)
+
+print('The weight file has been saved to', weights_path)
