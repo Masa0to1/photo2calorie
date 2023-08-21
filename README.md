@@ -47,14 +47,6 @@ python3 photo2calorie.py /target_image_file
 
 ```
 
-## Features
-
-## Reference
-
-## Author
-
-[twitter](https://twitter.com/Kotabrog)
-
 ## Licence
 
-[MIT](https://......)
+[MIT](https://github.com/masaki0to1/photo2calorie/blob/main/LICENSE.md)
